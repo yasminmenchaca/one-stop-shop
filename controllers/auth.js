@@ -210,7 +210,7 @@ exports.postReset = (req, res, next) => {
                     subject: 'Password Reset',
                     html: `
                     <p>You requested a password reset</p>
-                    <p>Click this <a href="http://localhost:8080/reset/${token}">link</a> to reset your password</p>
+                    <p>Click this <a href="http://onestopshop-env.eba-jhdcbemp.us-east-1.elasticbeanstalk.com/reset/${token}">link</a> to reset your password</p>
                     `
                 });
             })
