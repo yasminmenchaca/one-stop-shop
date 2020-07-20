@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "One Stop Shop",
   "main": "app.js",
+  "engines": {
+    "node": "14.2.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r dotenv/config app.js",
@@ -17,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/socket.io": "^2.1.9",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
