@@ -5,6 +5,8 @@ app.get('/', (req, res) => {
     res.send("Hello from One Stop Shop");
 });
 
-app.listen(8080, () => {
+const port = process.env.port || 8080;
+
+app.listen(port, () => {
     console.log("Hi");
 });
