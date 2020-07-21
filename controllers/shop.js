@@ -75,7 +75,7 @@ exports.getIndex = (req, res, next) => {
         .then(products => {
             res.render('shop/index', {
                 prods: products,
-                pageTitle: 'Shop',
+                pageTitle: 'Home',
                 path: '/',
                 currentPage: page,
                 hasNextPage: ITEMS_PER_PAGE * page < totalItems,

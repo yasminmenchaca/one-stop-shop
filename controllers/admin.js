@@ -17,10 +17,8 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-    const title = req.body.title;
+    const {title, price, description} = req.body;
     const image = req.file;
-    const price = req.body.price;
-    const description = req.body.description;
 
     if (!image) {
         return res.status(422).render('admin/edit-product', {
@@ -29,15 +27,14 @@ exports.postAddProduct = (req, res, next) => {
             editing: false,
             hasError: true,
             product: {
-                title: title,
-                price: price,
-                description: description
+                title,
+                price,
+                description,
             },
             errorMessage: 'Attached file is not an image.',
-            validationErrors: []
+            validationErrors: [],
         });
     }
-
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -48,49 +45,33 @@ exports.postAddProduct = (req, res, next) => {
             editing: false,
             hasError: true,
             product: {
-                title: title,
-                price: price,
-                description: description
+                title,
+                price,
+                description,
             },
             errorMessage: errors.array()[0].msg,
-            validationErrors: errors.array()
+            validationErrors: errors.array(),
         });
     }
 
-    const imageUrl = image.path;
+    const imageUrl = req.file.location;
+    const imageKey = req.file.key;
 
     const product = new Product({
-        // _id: mongoose.Types.ObjectId('5ee29e265babd61ff503fc17'),
         title: title,
         price: price,
         description: description,
         imageUrl: imageUrl,
+        imageKey,
         userId: req.user
     });
     product
         .save()
         .then(result => {
-            // console.log(result);
             console.log('Created Product');
             res.redirect('/admin/products');
         })
         .catch(err => {
-
-            // return res.status(500).render('admin/edit-product', {
-            //     pageTitle: 'Add Product',
-            //     path: '/admin/add-product',
-            //     editing: false,
-            //     hasError: true,
-            //     product: {
-            //         title: title,
-            //         imageUrl: imageUrl,
-            //         price: price,
-            //         description: description
-            //     },
-            //     errorMessage: 'Database operation failed, please try again',
-            //     validationErrors: []
-            // });
-            // res.redirect('/500');
             const error = new Error(err);
             error.httpStatusCode = 500;
             return next(error);
@@ -104,7 +85,7 @@ exports.getEditProduct = (req, res, next) => {
     }
     const prodId = req.params.productId;
     Product.findById(prodId)
-        .then(product => {
+        .then((product) => {
             if (!product) {
                 return res.redirect('/');
             }
@@ -112,13 +93,13 @@ exports.getEditProduct = (req, res, next) => {
                 pageTitle: 'Edit Product',
                 path: '/admin/edit-product',
                 editing: editMode,
-                product: product,
+                product,
                 hasError: false,
                 errorMessage: null,
-                validationErrors: []
+                validationErrors: [],
             });
         })
-        .catch(err => {
+        .catch((err) => {
             const error = new Error(err);
             error.httpStatusCode = 500;
             return next(error);
@@ -130,8 +111,6 @@ exports.postEditProduct = (req, res, next) => {
     const updatedTitle = req.body.title;
     const updatedPrice = req.body.price;
     const image = req.file;
-    const imageUrl = req.file.location;
-    const imageKey = req.file.key;
     const updatedDesc = req.body.description;
 
     const errors = validationResult(req);
@@ -163,8 +142,6 @@ exports.postEditProduct = (req, res, next) => {
             product.description = updatedDesc;
             if (image) {
                 fileHelper.deleteFile(product.imageUrl);
-                product.imageUrl = imageUrl;
-                product.imageKey = imageKey;
                 product.imageUrl = image.path;
             }
             // product.imageUrl = updatedImageUrl;
