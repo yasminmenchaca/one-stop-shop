@@ -48,7 +48,7 @@ const upload = multer({
             cb(null, {fieldName: file.fieldname});
         },
         key(req, file, cb) {
-            cb(null, `${uuid()}.jpg`);
+            cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
         },
     }),
 });
