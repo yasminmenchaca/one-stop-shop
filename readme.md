@@ -16,7 +16,7 @@ A marketplace application built with Node.js. Users can add, edit, and delete th
 ### General
 - [bcryptjs](https://www.npmjs.com/package/bcryptjs): A javascript implementation of `bcrypt` to provide simple hashing for passwords and other data
 - [pdfkit](http://pdfkit.org/): Create PDF documents in javascript
-- [socket.io](https://www.npmjs.com/package/socket.io): Simple web sockets library. Also has a [client library](https://github.com/socketio/socket.io-client). Example in `socket-io` branch
+- [socket.io](https://www.npmjs.com/package/socket.io): Simple web sockets library. Also has a [client library](https://github.com/socketio/socket.io-client).
 ### Mongo
 - [connect-mongodb-session](https://www.npmjs.com/package/connect-mongodb-session): Store express sessions in MongoDB
 - [mongodb](https://www.npmjs.com/package/mongodb): The official MongoDB driver for node
