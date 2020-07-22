@@ -153,8 +153,8 @@ exports.postSignup = (req, res, next) => {
             return transporter.sendMail({
                 to: email,
                 from: process.env.EMAIL,
-                subject: 'Sign Up Completed',
-                html: '<h1>You have signed up</h1>'
+                subject: 'Welcome to One Stop Shop!',
+                html: '<h1>You have successfully signed up</h1>'
             });
         })
         .catch(err => {
@@ -210,7 +210,7 @@ exports.postReset = (req, res, next) => {
                     subject: 'Password Reset',
                     html: `
                     <p>You requested a password reset</p>
-                    <p>Click this <a href="http://onestopshop-env.eba-jhdcbemp.us-east-1.elasticbeanstalk.com/reset/${token}">link</a> to reset your password</p>
+                    <p>Click this <a href="https://onestopshop-env.eba-jhdcbemp.us-east-1.elasticbeanstalk.com/reset/${token}">link</a> to reset your password</p>
                     `
                 });
             })
