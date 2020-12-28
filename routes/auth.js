@@ -31,7 +31,7 @@ router.post(
                     }
                 });
             }),
-        // .normalizeEmail(),
+
         body(
             'password',
             'Please enter a password with only numbers and text and at least 5 characters.'

@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const fileHelper = require('../util/file');
 
 const {validationResult} = require('express-validator/check');
@@ -144,7 +143,7 @@ exports.postEditProduct = (req, res, next) => {
                 fileHelper.deleteFile(product.imageUrl);
                 product.imageUrl = image.path;
             }
-            // product.imageUrl = updatedImageUrl;
+
             return product.save().then(result => {
                 console.log('UPDATED PRODUCT!');
                 res.redirect('/admin/products');
